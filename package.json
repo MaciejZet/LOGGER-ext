@@ -1,0 +1,75 @@
+{
+  "name": "log-filter",
+  "displayName": "Log Filter",
+  "description": "Filter .log files by DEBUG, INFO, WARNING, ERROR in a side panel and virtual preview.",
+  "version": "0.1.0",
+  "publisher": "maciejzmitrukiewicz",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:log"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "log",
+        "extensions": [
+          ".log"
+        ],
+        "aliases": [
+          "Log"
+        ]
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "log-filter",
+          "title": "Log Filter",
+          "icon": "resources/log.svg"
+        }
+      ]
+    },
+    "views": {
+      "log-filter": [
+        {
+          "type": "webview",
+          "id": "logFilter.controls",
+          "name": "Level filter"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "logFilter.openFiltered",
+        "title": "Log Filter: Open filtered view"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "logFilter.openFiltered",
+          "when": "resourceLangId == log",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "node esbuild.config.mjs",
+    "watch": "node esbuild.config.mjs --watch",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.2",
+    "typescript": "^5.4.5"
+  }
+}

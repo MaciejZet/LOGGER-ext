@@ -1,0 +1,8 @@
+2025-04-01 10:00:00.000 DEBUG Bootstrapping application
+2025-04-01 10:00:01.123 INFO  Server listening on port 3000
+2025-04-01 10:00:02.456 WARNING Deprecated option "legacyMode" is set
+2025-04-01 10:00:03.789 ERROR Connection refused to upstream service
+2025-04-01 10:00:04.012 INFO  Retry scheduled in 5s
+2025-04-01 10:00:05.345 [INFO] Health check passed
+2025-04-01 10:00:06.678 level=DEBUG cache warm-up complete
+2025-04-01 10:00:07.901 WARNING Disk usage above 80%
