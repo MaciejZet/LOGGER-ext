@@ -11,7 +11,7 @@
 ## Instalacja
 
 - Z **Marketplace:** wyszukaj „Log Filter” (wydawca: `maciejzmitrukiewicz`) i zainstaluj.
-- Z pliku **`.vsix`:** `Ctrl+Shift+P` → **Extensions: Install from VSIX…** → wybierz `log-filter-0.1.0.vsix`.
+- Z pliku **`.vsix`:** `Ctrl+Shift+P` → **Extensions: Install from VSIX…** → wybierz plik wygenerowany przez `npx @vscode/vsce package` (np. `mz-log-filter-0.1.0.vsix`).
 
 ## Użycie
 
