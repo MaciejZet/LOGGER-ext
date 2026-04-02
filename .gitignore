@@ -3,3 +3,4 @@ dist/
 .cursor/
 *.vsix
 .DS_Store
+AGENTS.md

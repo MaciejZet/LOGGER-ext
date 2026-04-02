@@ -16,7 +16,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:log"
+    "onLanguage:log",
+    "onView:logFilter.controls",
+    "onCommand:logFilter.openFiltered"
   ],
   "main": "./dist/extension.js",
   "contributes": {

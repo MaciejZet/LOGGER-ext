@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import {
+  parseContextLinesFromQuery,
   filterLinesByLevel,
   LogLevelFilter,
   parseLevelFromQuery,
@@ -10,9 +11,11 @@ export const LOG_FILTER_SCHEME = "log-filter";
 export function buildVirtualUri(
   fileUri: vscode.Uri,
   level: LogLevelFilter,
+  contextLines: number,
 ): vscode.Uri {
   const params = new URLSearchParams();
   params.set("level", level);
+  params.set("context", String(Math.max(0, Math.floor(contextLines))));
   params.set("ref", fileUri.toString(true));
   return fileUri.with({
     scheme: LOG_FILTER_SCHEME,
@@ -55,8 +58,9 @@ export class LogFilterContentProvider implements vscode.TextDocumentContentProvi
       return "";
     }
     const level = parseLevelFromQuery(uri.query);
+    const contextLines = parseContextLinesFromQuery(uri.query);
     const bytes = await vscode.workspace.fs.readFile(source);
     const text = new TextDecoder("utf-8").decode(bytes);
-    return filterLinesByLevel(text, level);
+    return filterLinesByLevel(text, level, contextLines);
   }
 }
