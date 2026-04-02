@@ -2,7 +2,7 @@
   "name": "mz-log-filter",
   "displayName": "Log Filter",
   "description": "Filter .log files by DEBUG, INFO, WARNING, ERROR in a side panel and virtual preview.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "publisher": "maciejzmitrukiewicz",
   "repository": {
