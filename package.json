@@ -3,7 +3,12 @@
   "displayName": "Log Filter",
   "description": "Filter .log files by DEBUG, INFO, WARNING, ERROR in a side panel and virtual preview.",
   "version": "0.1.0",
+  "license": "MIT",
   "publisher": "maciejzmitrukiewicz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaciejZet/LOGGER-ext.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
