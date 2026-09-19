@@ -1,44 +1,56 @@
-# Log Filter
+# Log Filter for VS Code
 
-**English:** VS Code extension that filters `.log` files by level — **DEBUG**, **INFO**, **WARNING**, **ERROR** — from a small side panel. Opens a **preview tab** with only the lines that match the chosen level (or all lines for **ALL**).
+Filter a `.log` file by level and read the matching lines in a separate editor tab. The original file stays unchanged.
 
-**Polski:** Rozszerzenie do VS Code, które pozwala przeglądać pliki `.log` według poziomu logowania. W panelu bocznym wybierasz poziom; otwiera się **nowa karta** z przefiltrowaną treścią (wyszukiwanie i kopiowanie działają jak w zwykłym edytorze).
+![Open a log, select a level, and read the matching lines with optional surrounding context.](docs/media/overview.svg)
 
-## Wymagania
+**VS Code 1.85+ · DEBUG / INFO / WARNING / ERROR · MIT**
 
-- Visual Studio Code **1.85** lub nowszy (Cursor / VSCodium z kompatybilnym API).
+## See the filter
 
-## Instalacja
+![Synthetic log lines filtered by the project's actual filtering function: all lines, warnings, errors, then errors with context.](docs/media/filter.gif)
 
-- Z **Marketplace:** wyszukaj „Log Filter” (wydawca: `maciejzmitrukiewicz`) i zainstaluj.
-- Z pliku **`.vsix`:** `Ctrl+Shift+P` → **Extensions: Install from VSIX…** → wybierz plik wygenerowany przez `npx @vscode/vsce package` (np. `mz-log-filter-0.1.1.vsix`).
+*Behavior illustration generated with the real filter function; this is not a recording of the VS Code interface. [Static example](docs/media/filter.png).*
 
-## Użycie
-
-1. Otwórz plik z rozszerzeniem **`.log`** (język `log` jest przypisany automatycznie).
-2. Na **pasku aktywności** wybierz ikonę **Log Filter**.
-3. W widoku **Level filter** kliknij np. **WARNING** — otworzy się podgląd tylko z liniami zawierającymi słowo `WARNING` (wzorzec rozpoznaje też `[INFO]`, `level=DEBUG` itp.).
-4. **ALL** pokazuje cały plik w podglądzie.
-5. Opcjonalnie: na pasku tytułu edytora (przy otwartym `.log`) użyj akcji **Log Filter: Open filtered view** — używa ostatnio wybranego poziomu z panelu.
-
-Po **zapisie** lub edycji pliku `.log` podgląd jest odświeżany (edycja z krótkim opóźnieniem).
-
-## Rozwój (dla autorów)
+## Install from source
 
 ```bash
-npm install
-npm run compile
-```
-
-Uruchomienie w **Extension Development Host:** `F5` w tym repozytorium (konfiguracja w `.vscode/launch.json`).
-
-Paczka do Marketplace:
-
-```bash
+git clone https://github.com/MaciejZet/LOGGER-ext.git
+cd LOGGER-ext
+npm ci
 npm run compile
 npx @vscode/vsce package
 ```
 
-## Licencja
+In VS Code, open the Command Palette, choose **Extensions: Install from VSIX…**, and select the generated `.vsix` file.
 
-MIT — zobacz plik [LICENSE](LICENSE).
+## Use it
+
+1. Open a `.log` file, or set the editor language to **Log**.
+2. Open **Log Filter → Level filter** in the activity bar.
+3. Select a level. A preview tab shows the matching lines.
+4. Add surrounding context when needed; choose **ALL** to see the complete file.
+
+The preview refreshes after edits and saves. You can search and copy its text like a normal editor document. The command **Log Filter: Open filtered view** reuses the last selected level.
+
+## Matching rules
+
+| Filter | Recognized words, case-insensitive |
+| --- | --- |
+| DEBUG | `DEBUG` |
+| INFO | `INFO` |
+| WARNING | `WARNING`, `WARN` |
+| ERROR | `ERROR`, `ERR`, `CRITICAL`, `FATAL` |
+
+Matching uses whole words, including forms such as `[INFO]` and `level=DEBUG`. If a line contains several level words, the first matching rule in the order above wins. This is text matching, not a structured-log parser.
+
+## Develop
+
+```bash
+npm run check
+npm run compile
+```
+
+Press **F5** in VS Code to launch the Extension Development Host. Filter logic lives in [src/logLevel.ts](src/logLevel.ts); the panel and preview providers live alongside it.
+
+[MIT license](LICENSE)
